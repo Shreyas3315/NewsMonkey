@@ -1,25 +1,44 @@
-import logo from './logo.svg';
 import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react';
+import Navbar from './components/Navbar';
+import News from './components/News';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes
+} from "react-router-dom";
+import LoadingBar from 'react-top-loading-bar';
+export default class App extends Component {
+  state = {
+    progress:0
+  }
+  setProgress(progress){
+    this.setState({
+      progress:progress
+    })
+  }
+  render() {
+    return (
+      <div>
+        <Router>
+          <Navbar/>
+          <LoadingBar
+            color='#f11946'
+            progress={this.state.progress}
+            
+          />
+          <Routes>
+            <Route path='/' element={<News  country="us" pageSize={6} category="general" />} />
+            <Route path='/business' element={<News  country="us" pageSize={6} category="business" />} />
+            <Route path='/entertainment' element={<News country="us" pageSize={6} category="entertainment" />} />
+            <Route path='/general' element={<News country="us" pageSize={6} category="general" />} />
+            <Route path='/health' element={<News country="us" pageSize={6} category="health" />} />
+            <Route path='/science' element={<News country="us" pageSize={6} category="science" />} />
+            <Route path='/sports' element={<News country="us" pageSize={6} category="sports" />} />
+            <Route path='/technology' element={<News country="us" pageSize={6} category="technology" />} />
+          </Routes>
+        </Router>
+      </div>
+    )
+  }
 }
-
-export default App;
